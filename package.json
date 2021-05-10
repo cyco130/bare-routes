@@ -1,11 +1,13 @@
 {
 	"name": "bare-routes",
-	"version": "0.0.0",
-	"description": "A bare-bones React client-side page router that delegates the actual routing and page loading to user code and only handles history manipulation.",
+	"version": "0.0.1",
+	"description": "A bare-bones React client-side page router that delegates the actual routing and page loading to user code and only handles history manipulation",
 	"keywords": [
 		"router",
 		"react"
 	],
+	"repository": "github:cyco130/bare-routes",
+	"homepage": "https://github.com/cyco130/bare-routes#readme",
 	"files": [
 		"dist/**/*.js",
 		"dist/esm/*.d.ts",
