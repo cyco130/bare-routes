@@ -1,6 +1,6 @@
 {
 	"name": "bare-routes",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "A bare-bones React client-side page router that delegates the actual routing and page loading to user code and only handles history manipulation",
 	"keywords": [
 		"router",
