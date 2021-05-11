@@ -8,13 +8,17 @@ import React, {
 } from "react";
 
 export interface RouterProps {
+	/** Callback for rendering the view for a given URL */
 	render(renderArgs: RouteRenderArgs): ReactNode | Promise<ReactNode>;
+	/** Don't call render in initial render. Useful for hydrating after SSR. */
 	skipInitialRender?: boolean;
 }
 
 export interface RouteRenderArgs {
-	abortSignal: AbortSignal;
+	/** URL for which a view should be rendered */
 	url: URL;
+	/** This is for signaling when the route transition is aborted */
+	abortSignal: AbortSignal;
 }
 
 export const Router: FC<RouterProps> = ({
@@ -158,8 +162,11 @@ function isPromise(value: unknown): value is Promise<unknown> {
 import { createContext, useContext } from "react";
 
 export interface RouterInfo {
+	/** Route that is currently viewed */
 	current: URL;
+	/** Route to which a transition is underway */
 	next?: URL;
+	/** Navigate programmatically */
 	navigate(
 		to: string,
 		options?: {
@@ -176,6 +183,7 @@ const RouterContext = createContext<RouterInfo>({
 	},
 });
 
+/** Custom hook for tracking navigation status and programmatic navigation */
 export function useRouter(): RouterInfo {
 	return useContext(RouterContext);
 }
