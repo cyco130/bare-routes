@@ -23,7 +23,8 @@ export const BaseLink = forwardRef<HTMLAnchorElement, BaseLinkProps>(
 					e.button !== 0 ||
 					e.shiftKey ||
 					e.altKey ||
-					e.ctrlKey
+					e.ctrlKey ||
+					e.currentTarget.target
 				) {
 					return;
 				}
