@@ -5,6 +5,8 @@ import React, {
 	useEffect,
 	useMemo,
 	useState,
+	createContext,
+	useContext,
 } from "react";
 
 export interface RouterProps {
@@ -155,11 +157,34 @@ export const Router: FC<RouterProps> = ({
 	);
 };
 
-function isPromise(value: unknown): value is Promise<unknown> {
-	return typeof (value as Promise<ReactNode>).then === "function";
+export interface RouteRenderArgs {
+	/** URL for which a view should be rendered */
+	url: URL;
+	/** This is for signaling when the route transition is aborted */
+	abortSignal: AbortSignal;
 }
 
-import { createContext, useContext } from "react";
+export interface ServerRouterProps {
+	url: URL;
+}
+
+export const ServerRouter: FC<ServerRouterProps> = ({ children, url }) => {
+	const contextValue = useMemo<RouterInfo>(
+		() => ({
+			current: url,
+			navigate() {
+				throw new Error("navigate() cannot be used on server side");
+			},
+		}),
+		[url],
+	);
+
+	return (
+		<RouterContext.Provider value={contextValue}>
+			{children}
+		</RouterContext.Provider>
+	);
+};
 
 export interface RouterInfo {
 	/** Route that is currently viewed */
@@ -186,4 +211,8 @@ const RouterContext = createContext<RouterInfo>({
 /** Custom hook for tracking navigation status and programmatic navigation */
 export function useRouter(): RouterInfo {
 	return useContext(RouterContext);
+}
+
+function isPromise(value: unknown): value is Promise<unknown> {
+	return typeof (value as Promise<ReactNode>).then === "function";
 }

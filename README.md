@@ -18,7 +18,7 @@ Let's say you have a very simple web app with three pages, each page represented
 | Path     | Component   |
 | -------- | ----------- |
 | `/`      | `HomePage`  |
-| `/new`   | `NewsPage`  |
+| `/news`  | `NewsPage`  |
 | `/about` | `AboutPage` |
 
 You would do something like this:
