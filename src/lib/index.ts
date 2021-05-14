@@ -1,4 +1,4 @@
-export { Router, useRouter } from "./Router";
+export { Router, ServerRouter, useRouter } from "./Router";
 export type { RouterProps, RouteRenderArgs, RouterInfo } from "./Router";
 
 export { Link } from "./Link";
