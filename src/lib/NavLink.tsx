@@ -29,7 +29,13 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
 
 		const classNames = className ? [className] : [];
 
-		if (props.href !== undefined && (currentRouteClass || nextRouteClass)) {
+		if (
+			props.href !== undefined &&
+			(currentRouteClass ||
+				nextRouteClass ||
+				currentRouteStyle ||
+				nextRouteStyle)
+		) {
 			const url = new URL(props.href, current);
 			if (next && onCompareUrls(next, url)) {
 				if (nextRouteClass) classNames.push(nextRouteClass);
