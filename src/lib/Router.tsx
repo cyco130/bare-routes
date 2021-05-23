@@ -53,10 +53,12 @@ export const Router: FC<RouterProps> = ({
 				return false;
 			}
 
-			if (url.pathname === current.pathname && url.search === current.search) {
-				if (url.hash !== current.hash) {
-					window.location.assign(to);
-				}
+			if (
+				url.pathname === current.pathname &&
+				url.search === current.search &&
+				url.hash !== current.hash
+			) {
+				window.location.assign(to);
 				return false;
 			}
 
