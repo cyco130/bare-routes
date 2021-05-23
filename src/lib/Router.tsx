@@ -35,15 +35,17 @@ export const Router: FC<RouterProps> = ({
 		next?: URL;
 		shouldScroll?: boolean;
 		content: ReactNode;
+		trigger: number;
 	}
 
 	const [
-		{ current, next, shouldScroll, content },
+		{ current, next, shouldScroll, content, trigger },
 		setState,
 	] = useState<RouterState>({
 		current: new URL(window.location.href),
 		next: skipInitialRender ? undefined : new URL(window.location.href),
 		content: children,
+		trigger: 0,
 	});
 
 	const navigate = useCallback(
@@ -90,7 +92,7 @@ export const Router: FC<RouterProps> = ({
 			url: next,
 			abortSignal: abortController.signal,
 			rerender() {
-				setState((old) => ({ ...old }));
+				setState((old) => ({ ...old, trigger: (old.trigger + 1) & 0xffff }));
 			},
 		});
 
@@ -116,7 +118,7 @@ export const Router: FC<RouterProps> = ({
 		return () => {
 			abortController.abort();
 		};
-	}, [render, next]);
+	}, [render, next, trigger]);
 
 	useEffect(() => {
 		if (shouldScroll) {
