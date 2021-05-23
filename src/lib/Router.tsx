@@ -21,6 +21,8 @@ export interface RouteRenderArgs {
 	url: URL;
 	/** This is for signaling when the route transition is aborted */
 	abortSignal: AbortSignal;
+	/** Force a rerender */
+	rerender?(): void;
 }
 
 export const Router: FC<RouterProps> = ({
@@ -87,6 +89,9 @@ export const Router: FC<RouterProps> = ({
 		const renderResult = render({
 			url: next,
 			abortSignal: abortController.signal,
+			rerender() {
+				setState((old) => ({ ...old }));
+			},
 		});
 
 		if (isPromise(renderResult)) {
