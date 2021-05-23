@@ -76,6 +76,9 @@ async function main() {
 	const initial = await renderPage({
 		abortSignal: new AbortController().signal,
 		url: new URL(window.location.href),
+		rerender() {
+			// Do nothing
+		},
 	});
 	render(<App>{initial}</App>, document.getElementById("app"));
 }

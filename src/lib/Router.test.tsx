@@ -69,4 +69,26 @@ describe("Router", () => {
 		);
 		expect(screen.getByTestId("content")).toHaveTextContent("Loading");
 	});
+
+	it("rerenders on demand", async () => {
+		let counter = 1;
+		let callRerender: () => void;
+
+		render(
+			<Router
+				render={({ rerender }) => {
+					callRerender = rerender;
+
+					return <span data-testid="content">{counter}</span>;
+				}}
+			>
+				<span data-testid="content">Loading</span>
+			</Router>,
+		);
+
+		expect(screen.getByTestId("content")).toHaveTextContent("1");
+		counter++;
+		act(() => callRerender!());
+		expect(screen.getByTestId("content")).toHaveTextContent("2");
+	});
 });
