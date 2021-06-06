@@ -93,13 +93,16 @@ export const Router: FC<RouterProps> = ({
 		if (!next) return;
 
 		const abortController = new AbortController();
+		let redirected = false;
 
 		const renderResult = render({
 			url: next,
 			abortSignal: abortController.signal,
-			navigate,
+			navigate(to, options) {
+				navigate(to, options);
+				redirected = true;
+			},
 			rerender() {
-				console.log("Rerender called");
 				setState((old) => ({ ...old, next: old.current }));
 			},
 		});
@@ -124,7 +127,7 @@ export const Router: FC<RouterProps> = ({
 		}
 
 		return () => {
-			abortController.abort();
+			if (!redirected) abortController.abort();
 		};
 	}, [render, next, navigate]);
 
