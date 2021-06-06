@@ -21,6 +21,14 @@ export interface RouteRenderArgs {
 	url: URL;
 	/** This is for signaling when the route transition is aborted */
 	abortSignal: AbortSignal;
+	/** Navigate */
+	navigate(
+		to: string,
+		options?: {
+			replace?: boolean;
+			scroll?: boolean;
+		},
+	): void;
 	/** Force a rerender */
 	rerender(): void;
 }
@@ -89,6 +97,7 @@ export const Router: FC<RouterProps> = ({
 		const renderResult = render({
 			url: next,
 			abortSignal: abortController.signal,
+			navigate,
 			rerender() {
 				console.log("Rerender called");
 				setState((old) => ({ ...old, next: old.current }));
@@ -117,7 +126,7 @@ export const Router: FC<RouterProps> = ({
 		return () => {
 			abortController.abort();
 		};
-	}, [render, next]);
+	}, [render, next, navigate]);
 
 	useEffect(() => {
 		if (shouldScroll) {

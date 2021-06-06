@@ -79,6 +79,9 @@ async function main() {
 		rerender() {
 			// Do nothing
 		},
+		navigate() {
+			// Do nothing
+		},
 	});
 	render(<App>{initial}</App>, document.getElementById("app"));
 }
