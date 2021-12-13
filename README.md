@@ -1,3 +1,5 @@
+**⚠️ DEPRECATED ⚠️:** Consider using [`knave`](https://github.com/cyco130/knave) instead!
+
 # bare-routes
 
 `bare-routes` is a bare-bones client-side router for [React](https://reactjs.org) web applications. It doesn't provide any means for matching routes, fetching data or dynamically importing modules. _You_ do all that in your `render` callback. `bare-routes` only handles the history API and the scroll position restoration.
